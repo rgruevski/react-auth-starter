@@ -28,16 +28,13 @@ export const LogInPage = () => {
                 onChange={e => setPasswordValue(e.target.value)} />
             <button
                 onClick={onLogInClicked}
-                disabled={!emailValue || !passwordValue}>
-                Log In
+                disabled={!emailValue || !passwordValue}> Log In
             </button>
             <button
-                onClick={() => history.push('/forgot-password')}>
-                Forgot Your Password?
+                onClick={() => history.push('/forgot-password')}> Forgot Your Password?
             </button>
             <button
-                onClick={() => history.push('/signup')}>
-                Don't have an account? Sign Up
+                onClick={() => history.push('/signup')}> Don't have an account? Sign Up
             </button>
         </div>
     );
