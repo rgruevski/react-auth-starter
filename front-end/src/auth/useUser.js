@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useToken } from './useToken';
 export const useUser = () => {
     const [token] = useToken();
@@ -13,5 +13,5 @@ export const useUser = () => {
     const [user, setUser] = useState(() => {
         if (!token) return null;
         return getPayloadFromToken(token);
-    })s
+    });
 }
