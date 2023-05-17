@@ -1,0 +1,19 @@
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+export const PleaseVerifyEmailPage = () => {
+    const history = useHistory();
+    useEffect(() => {
+        setTimeout(() => {
+            history.push('/');
+        }, 12000);
+    }, [history]);
+    return (
+        <div className="content-container">
+            <h1>Thanks for Signing Up!</h1>
+            <p>
+                A varification email has been sent to the email address provided.
+                Please verify your email to unlock your account.
+            </p>
+        </div>
+    )
+}

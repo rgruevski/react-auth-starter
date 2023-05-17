@@ -15,7 +15,13 @@ export const logInRoute = {
 
     const { _id: id, isVerified, passwordHash, info } = user;
 
-    const isCorrect = await bcrypt.compare(password, passwordHash);
+    const isCorrect = await bcrypt.compare(password, passwordHash, (err, result) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      return result;
+    });
 
     if (isCorrect) {
       jwt.sign(

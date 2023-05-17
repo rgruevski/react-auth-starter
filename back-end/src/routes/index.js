@@ -7,6 +7,7 @@ export const routes = [
     logInRoute,
     signUpRoute,
     updateUserInfoRoute,
+    // testEmailRoute,
     testRoute
 ];
 

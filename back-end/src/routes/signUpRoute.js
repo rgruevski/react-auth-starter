@@ -3,10 +3,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from 'uuid';
 import { sendEmail } from "../../util/sendEmail";
+
 export const signUpRoute = {
   path: "/api/signup",
   method: "post",
-  handler: async (req, res) => {
+  _handler: async (req, res) => {
 
     const { email, password } = req.body;
 
@@ -21,7 +22,13 @@ export const signUpRoute = {
       res.sendStatus(409);
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 12, (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return result;
+    });
     const verificationString = uuid();
 
     const startingInfo = {
@@ -45,7 +52,7 @@ export const signUpRoute = {
         from: 'robbygluon@gmail.com',
         subject: 'Verify your email address.',
         test: `Thank you for signing up with us. To verify, click here: http://localhost:3000/verify-email/${verificationString}`
-      })
+      });
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
@@ -56,7 +63,7 @@ export const signUpRoute = {
         id: insertedId,
         email,
         info: startingInfo,
-        isVerified: false,
+        isVerified: false
       },
       // JSON Web Token Secret generated using dotenv.
       process.env.JWT_SECRET,
@@ -70,5 +77,11 @@ export const signUpRoute = {
         res.status(200).json({ token });
       }
     );
+  },
+  get handler() {
+    return this._handler;
+  },
+  set handler(value) {
+    this._handler = value;
   },
 };
