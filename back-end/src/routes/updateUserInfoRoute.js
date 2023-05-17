@@ -9,7 +9,7 @@ export const updateUserInfoRoute = {
         const { authorization } = req.headers;
         const { userId } = req.params;
 
-        const updates = ({
+        const updates = (({
             favoriteFood,
             hairColor,
             bio
@@ -17,7 +17,7 @@ export const updateUserInfoRoute = {
             favoriteFood,
             hairColor,
             bio
-        })(req.body); // Takes a subset of properties from an object
+        }))(req.body); // Takes a subset of properties from an object
         // the req.body returns a JSON with only the specified members of the object (to deter users from storing arbitrary data in the database)
 
         if (!authorization) {
