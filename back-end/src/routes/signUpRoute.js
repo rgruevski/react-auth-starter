@@ -1,6 +1,8 @@
 import { getDbConnection } from "../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { v4 as uuid } from 'uuid';
+import { sendEmail } from "../../util/sendEmail";
 export const signUpRoute = {
   path: "/api/signup",
   method: "post",
@@ -19,26 +21,36 @@ export const signUpRoute = {
       res.sendStatus(409);
     }
 
-    // Encrypt the password with bcrypt using 12 iterations.
     const passwordHash = await bcrypt.hash(password, 12);
+    const verificationString = uuid();
 
-    // New user to insert into the database.
     const startingInfo = {
       hairColor: "",
       favoriteFood: "",
       bio: "",
     };
 
-    // Insert statement for the user, with provided schema.
     const result = await db.collection("users").insertOne({
       email,
       password,
       info: startingInfo,
       isVerified: false,
+      verificationString
     });
-    const { insertedId } = result; // default identifier
+    const { insertedId } = result;
 
-    // Generate a JSON Web Token to send back to the client for use.
+    try {
+      await sendEmail({
+        to: email,
+        from: 'robbygluon@gmail.com',
+        subject: 'Verify your email address.',
+        test: `Thank you for signing up with us. To verify, click here: http://localhost:3000/verify-email/${verificationString}`
+      })
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+
     jwt.sign(
       {
         id: insertedId,

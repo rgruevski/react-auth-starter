@@ -34,7 +34,7 @@ export const UserInfoPage = () => {
             setTimeout(() => {
                 setShowSuccessMessage(false);
                 setShowErrorMessage(false);
-            }, 3000);
+            }, 12000);
         }
     }, [showSuccessMessage, showErrorMessage]);
 
