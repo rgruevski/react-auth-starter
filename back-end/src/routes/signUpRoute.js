@@ -1,7 +1,7 @@
 import { getDbConnection } from "../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import { sendEmail } from "../../util/sendEmail";
 
 export const signUpRoute = {
@@ -10,25 +10,15 @@ export const signUpRoute = {
   _handler: async (req, res) => {
 
     const { email, password } = req.body;
-
-    // Get a connection to the authentication database by name.
+    
     const db = getDbConnection("react-auth-db");
 
-    // Check sign up email against the existing emails.
     const user = await db.collection("users").findOne({ email });
-
-    // Respond with conflicting resource status code.
     if (user) {
       res.sendStatus(409);
     }
 
-    const passwordHash = await bcrypt.hash(password, 12, (err, result) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      return result;
-    });
+    const passwordHash = bcrypt.hash(password, 12);
     const verificationString = uuid();
 
     const startingInfo = {
@@ -51,10 +41,9 @@ export const signUpRoute = {
         to: email,
         from: 'robbygluon@gmail.com',
         subject: 'Verify your email address.',
-        test: `Thank you for signing up with us. To verify, click here: http://localhost:3000/verify-email/${verificationString}`
+        test: `Click here: http://localhost:3000/verify-email/${verificationString}`
       });
     } catch (err) {
-      console.log(err);
       res.sendStatus(500);
     }
 
@@ -65,7 +54,6 @@ export const signUpRoute = {
         info: startingInfo,
         isVerified: false
       },
-      // JSON Web Token Secret generated using dotenv.
       process.env.JWT_SECRET,
       {
         expiresIn: "2d",

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useToken } from "../auth/useToken";
 export const LogInPage = () => {
 
-    const [token, setToken] = useToken("");
+    const [, setToken] = useToken("");
     const [errorMessage, setErrorMessage] = useState("");
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");

@@ -5,9 +5,9 @@ import { useToken } from '../auth/useToken';
 import { useUser } from '../auth/useUser';
 
 export const UserInfoPage = () => {
-
     const user = useUser();
     const [token, setToken] = useToken();
+
     const { id, email, isVerified, info } = user;
 
     // We'll use the history to navigate the user
@@ -34,26 +34,24 @@ export const UserInfoPage = () => {
             setTimeout(() => {
                 setShowSuccessMessage(false);
                 setShowErrorMessage(false);
-            }, 12000);
+            }, 3000);
         }
     }, [showSuccessMessage, showErrorMessage]);
 
     const saveChanges = async () => {
-        // Send a request to the server to
-        // update the user's info with any changes we've
-        // made to the text input values
         try {
             const response = await axios.put(`/api/users/${id}`, {
                 favoriteFood,
                 hairColor,
-                bio
+                bio,
             }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+
             const { token: newToken } = response.data;
             setToken(newToken);
             setShowSuccessMessage(true);
-        } catch (err) {
+        } catch (error) {
             setShowErrorMessage(true);
         }
     }
@@ -72,7 +70,7 @@ export const UserInfoPage = () => {
     // And here we have the JSX for our component. It's pretty straightforward
     return (
         <div className="content-container">
-            <h1>Info for ______</h1>
+            <h1>Info for {email}</h1>
             {!isVerified && <div className="fail">You won't be able to make any changes until you verify your email</div>}
             {showSuccessMessage && <div className="success">Successfully saved user data!</div>}
             {showErrorMessage && <div className="fail">Uh oh... something went wrong and we couldn't save changes</div>}
