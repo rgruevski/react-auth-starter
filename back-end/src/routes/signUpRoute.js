@@ -5,6 +5,7 @@ export const signUpRoute = {
   path: "/api/signup",
   method: "post",
   handler: async (req, res) => {
+
     const { email, password } = req.body;
 
     // Get a connection to the authentication database by name.
@@ -57,7 +58,5 @@ export const signUpRoute = {
         res.status(200).json({ token });
       }
     );
-
-    // JWT Secret used to sign the token it creates
   },
 };

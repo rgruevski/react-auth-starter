@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useToken } from './useToken';
 export const useUser = () => {
+
     const [token] = useToken();
 
     // Getting the 'Payload' from the Token and parsing it into a JSON.
@@ -11,7 +12,20 @@ export const useUser = () => {
 
     // Define the User State.
     const [user, setUser] = useState(() => {
-        if (!token) return null;
-        return getPayloadFromToken(token);
+        if (!token) {
+            return null;
+        } else {
+            return getPayloadFromToken(token);
+        }
     });
+
+    useEffect(() => {
+        if (!token) {
+            setUser(null);
+        } else {
+            setUser(getPayloadFromToken(token));
+        }
+    }, [token]);
+
+    return user;
 }
