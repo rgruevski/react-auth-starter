@@ -29,6 +29,7 @@ export const EmailVerificationLandingPage = () => {
             try {
                 const response = await axios.put('/api/verify-email', { verificationString });
 <<<<<<< HEAD
+<<<<<<< HEAD
                 const { token } = response.data;
                 setToken(token);
                 setIsSuccess(true);
@@ -36,6 +37,9 @@ export const EmailVerificationLandingPage = () => {
             } catch (e) { 
 =======
                 const { token } = response;
+=======
+                const { token } = response.data;
+>>>>>>> 49e2d4f (Email Verification)
                 setToken(token);
                 setIsSuccess(true);
                 setIsLoading(false);
