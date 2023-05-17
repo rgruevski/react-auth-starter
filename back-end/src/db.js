@@ -1,9 +1,10 @@
 import { MongoClient } from 'mongodb';
 
 let client;
+let connectionString = process.env.CONNECTIONSTRING;
 
 export const initializeDbConnection = async () => {
-    client = await MongoClient.connect('mongodb+srv://robert:gj5jswABEb4tQ1vd@cluster0.l26vij8.mongodb.net/', {
+    client = await MongoClient.connect(connectionString, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
