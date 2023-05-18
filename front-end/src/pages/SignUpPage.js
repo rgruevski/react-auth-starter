@@ -4,10 +4,9 @@ import axios from 'axios';
 import { useToken } from '../auth/useToken';
 
 export const SignUpPage = () => {
+  
   const [token, setToken] = useToken();
-
   const [errorMessage, setErrorMessage] = useState('');
-
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
