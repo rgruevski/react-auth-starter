@@ -1,3 +1,4 @@
+import { forgotPasswordRoute } from './forgotPasswordRoute';
 import { logInRoute } from "./logInRoute";
 import { signUpRoute } from "./signUpRoute";
 import { emailVerifyRoute } from "./emailVerifyRoute";
@@ -8,6 +9,7 @@ export const routes = [
     signUpRoute,
     updateUserInfoRoute,
     emailVerifyRoute,
+    forgotPasswordRoute,
     // testEmailRoute,
     testRoute
 ];

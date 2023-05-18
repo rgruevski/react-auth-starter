@@ -5,7 +5,8 @@ import axios from 'axios';
 export const ForgotPasswordPage = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [success, setSuccess] = useState(false);
-    const [emailvalue, setEmailValue] = useStaet('');
+    const [emailValue, setEmailValue] = useState('');
+    
     const history = useHistory();
 
     const onSubmitClicked = async () => {
@@ -32,7 +33,7 @@ export const ForgotPasswordPage = () => {
                 <p>Enter your email and we'll send you a reset link</p>
                 {errorMessage && <div className="fail">{errorMessage}</div>}
                 <input
-                    value={emailvalue}
+                    value={emailValue}
                     onChange={(e) => setEmailValue(e.target.value)}
                     placeholder="someone@gmail.com" />
                 <button
@@ -41,5 +42,4 @@ export const ForgotPasswordPage = () => {
                 >Send Reset Link</button>
             </div>
         )
-    )
 }
