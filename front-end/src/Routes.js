@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { LogInPage } from './pages/LogInPage';
-import { UserInfoPage } from './pages/UserInfoPage';
-import { SignUpPage } from './pages/SignUpPage';
-import { PleaseVerifyEmailPage } from './pages/PleaseVerifyEmailPage';
-import { EmailVerificationLandingPage } from './pages/EmailVerificationLandingPage';
-import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
-import { PrivateRoute } from './auth/PrivateRoute';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { LogInPage } from "./pages/LogInPage";
+import { UserInfoPage } from "./pages/UserInfoPage";
+import { SignUpPage } from "./pages/SignUpPage";
+import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
+import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
+import { PassowordResetLandingPage } from "./pages/PassowordResetLandingPage"
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { PrivateRoute } from "./auth/PrivateRoute";
 
 export const Routes = () => {
     return (
@@ -23,8 +24,11 @@ export const Routes = () => {
                 <Route path="/login">
                     <LogInPage />
                 </Route>
-                <Route path='/please-verify'>
+                <Route path="/please-verify">
                     <PleaseVerifyEmailPage />
+                </Route>
+                <Route path="/reset-password/:passwordResetCode">
+                    <PassowordResetLandingPage />
                 </Route>
                 <Route path="/signup">
                     <SignUpPage />
