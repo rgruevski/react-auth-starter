@@ -4,7 +4,7 @@ import { UserInfoPage } from "./pages/UserInfoPage";
 import { SignUpPage } from "./pages/SignUpPage";
 import { PleaseVerifyEmailPage } from "./pages/PleaseVerifyEmailPage";
 import { EmailVerificationLandingPage } from "./pages/EmailVerificationLandingPage";
-import { PassowordResetLandingPage } from "./pages/PassowordResetLandingPage"
+import { PassowordResetLandingPage } from "./pages/PasswordResetLandingPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { PrivateRoute } from "./auth/PrivateRoute";
 
