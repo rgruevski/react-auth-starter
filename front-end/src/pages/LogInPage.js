@@ -27,6 +27,7 @@ export const LogInPage = () => {
             try {
                 const response = await axios.get('/auth/google/url');
                 const url = response.data;
+                console.log(response.data);
                 setGoogleOauthUrl(url);
             } catch (err) {
                 console.log(err);

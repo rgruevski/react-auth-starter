@@ -12,7 +12,7 @@ export const resetPasswordRoute = {
         const newPasswordHash = await bcrypt.hash(newPassword, 10);
 
         const result = await db.collection('users')
-            .findOneAndUpdate({ passowrdResetCode }, {
+            .findOneAndUpdate({ passwordResetCode }, {
                 $set: { passwordHash: newPasswordHash },
                 $unset: { passowrdResetCode: '' }
             });
