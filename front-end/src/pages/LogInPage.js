@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useToken } from "../auth/useToken";
 export const LogInPage = () => {
@@ -8,8 +8,22 @@ export const LogInPage = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
+    const [googleOauthUrl, setGoogleOauthUrl] = useState("");
 
     const history = useHistory();
+
+    useEffect(() => {
+        const loadOauthUrl = async () => {
+            try {
+                const response = await axios.get('/auth/google/url');
+                const url = response.data;
+                setGoogleOauthUrl(url);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        loadOauthUrl();
+    }, []);
 
     const onLogInClicked = async () => {
         const response = await axios.post('/api/login', {
@@ -32,7 +46,7 @@ export const LogInPage = () => {
                 type="email"
                 value={emailValue}
                 placeholder="Type email..."
-                onChange={e => setEmailValue(e.target.value)} 
+                onChange={e => setEmailValue(e.target.value)}
             />
             <input
                 type="password"
@@ -48,6 +62,10 @@ export const LogInPage = () => {
             </button>
             <button
                 onClick={() => history.push('/signup')}> Don't have an account? Sign Up
+            </button>
+            <button
+                disabled={!googleOauthUrl}
+                onClick={() => { window.location.href = googleOauthUrl }}> Log In with Google
             </button>
         </div>
     );
