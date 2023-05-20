@@ -1,14 +1,17 @@
 import { forgotPasswordRoute } from './forgotPasswordRoute';
 import { getGoogleOauthUrlRoute } from './getGoogleOauthUrlRoute';
+import { googleOauthCallbackRoute } from './googleOauthCallbackRoute';
 import { logInRoute } from "./logInRoute";
 import { signUpRoute } from "./signUpRoute";
 import { resetPasswordRoute } from './resetPasswordRoute';
 import { verifyEmailRoute } from "./verifyEmailRoute";
 import { testRoute } from "./testRoute";
 import { updateUserInfoRoute } from "./updateUserInfoRoute";
+
 export const routes = [
     logInRoute,
     signUpRoute,
+    googleOauthCallbackRoute,
     updateUserInfoRoute,
     verifyEmailRoute,
     forgotPasswordRoute,
