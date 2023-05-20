@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-export const PasswordVerificationFail = () => {
+export const PasswordResetFail = () => {
     const history = useHistory();
     return (
         <div className="content-container">

@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useToken } from "../auth/useToken";
+import { useQueryParams } from "../util/useQueryParams";
+
 export const LogInPage = () => {
 
     const [, setToken] = useToken("");
@@ -9,8 +11,16 @@ export const LogInPage = () => {
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
     const [googleOauthUrl, setGoogleOauthUrl] = useState("");
+    const { token: oauthToken } = useQueryParams();
 
     const history = useHistory();
+
+    useEffect(() => {
+        if (oauthToken) {
+            setToken(oauthToken);
+            history.push('/');
+        }
+    },[oauthToken, setToken, history]);
 
     useEffect(() => {
         const loadOauthUrl = async () => {
@@ -46,8 +56,7 @@ export const LogInPage = () => {
                 type="email"
                 value={emailValue}
                 placeholder="Type email..."
-                onChange={e => setEmailValue(e.target.value)}
-            />
+                onChange={e => setEmailValue(e.target.value)} />
             <input
                 type="password"
                 value={passwordValue}
