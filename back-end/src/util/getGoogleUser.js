@@ -5,8 +5,14 @@ const getAccessAndBearerTokenUrl = ({ accessToken }) =>
 export const getGoogleUser = async ({ code }) => {
     const { tokens } = await oauthClient.getToken(code);
     const response = await axios.get(
-        getAccessAndBearerTokenUrl({ accessToken: tokens.access_token() }),
-        { headers: { Authorization: `Bearer ${tokens.id_token}` } }
+        getAccessAndBearerTokenUrl({
+            accessToken: tokens.access_token()
+        }),
+        {
+            headers: {
+                Authorization: `Bearer ${tokens.id_token}`
+            }
+        }
     );
     return response.data;
 }

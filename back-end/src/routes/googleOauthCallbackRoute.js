@@ -1,7 +1,7 @@
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { getGoogleUser } from '../util/getGoogleUser';
 import { updateOrCreateUserFromOauth } from '../util/updateOrCreateUserFromOauth';
-
+const redirectUri = `http://localhost:3000/login?token=${token}`;
 export const googleOauthCallbackRoute = {
     path: '/auth/google/callback',
     method: 'get',
@@ -15,7 +15,8 @@ export const googleOauthCallbackRoute = {
             { expiresIn: '2d' },
             (err, token) => {
                 if (err) return res.sendStatus(500);
-                res.redirect(`http://localhost:3000/login?token=${token}`);
-            });
+                res.redirect(redirectUri);
+            }
+        );
     }
 }
